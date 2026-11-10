@@ -1,3 +1,4 @@
+
 package com.example.selenium02;
 
 import java.io.File;
@@ -5,6 +6,7 @@ import java.io.File;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.support.ui.Select;
 
 import org.testng.Assert;
@@ -19,7 +21,15 @@ public class LocalLoginTest {
     @BeforeMethod
     public void setUp() {
 
-        driver = new ChromeDriver();
+        // Configure Chrome for GitHub Actions
+        ChromeOptions options = new ChromeOptions();
+
+        options.addArguments("--headless=new");
+        options.addArguments("--no-sandbox");
+        options.addArguments("--disable-dev-shm-usage");
+        options.addArguments("--window-size=1920,1080");
+
+        driver = new ChromeDriver(options);
 
         driver.manage().window().maximize();
 
@@ -156,6 +166,9 @@ public class LocalLoginTest {
     @AfterMethod
     public void tearDown() {
 
-        driver.quit();
+        if (driver != null) {
+            driver.quit();
+        }
     }
+
 }
