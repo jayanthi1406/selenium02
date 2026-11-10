@@ -1,0 +1,160 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Student Registration</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: white;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        #registrationBox {
+            background-color: lightblue;
+            width: 350px;
+            padding: 25px;
+            border-radius: 10px;
+        }
+
+        h2 {
+            text-align: center;
+        }
+
+        input, select {
+            width: 100%;
+            padding: 8px;
+            margin: 8px 0;
+            box-sizing: border-box;
+        }
+
+        button {
+            width: 100%;
+            padding: 10px;
+            background-color: blue;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+
+        .error {
+            color: red;
+            font-size: 12px;
+        }
+
+        #message {
+            margin-top: 12px;
+            text-align: center;
+            color: green;
+            font-weight: bold;
+        }
+    </style>
+</head>
+
+<body>
+
+<div id="registrationBox">
+
+    <h2>Student Registration</h2>
+
+    <form id="registrationForm" onsubmit="registerStudent(event)">
+
+        <input type="text" id="studentName"
+               placeholder="Enter Student Name">
+        <div id="nameError" class="error"></div>
+
+        <input type="text" id="email"
+               placeholder="Enter Email">
+        <div id="emailError" class="error"></div>
+
+        <input type="text" id="usn"
+               placeholder="Enter USN">
+        <div id="usnError" class="error"></div>
+
+        <select id="course">
+            <option value="">Select Course</option>
+            <option value="AIML">Artificial Intelligence and ML</option>
+            <option value="CSE">Computer Science</option>
+            <option value="ECE">Electronics</option>
+        </select>
+        <div id="courseError" class="error"></div>
+
+        <button type="submit" id="registerButton">
+            Register
+        </button>
+
+    </form>
+
+    <div id="message"></div>
+
+</div>
+
+<script>
+
+function registerStudent(event) {
+
+    event.preventDefault();
+
+    // Clear previous messages
+    document.getElementById("nameError").innerText = "";
+    document.getElementById("emailError").innerText = "";
+    document.getElementById("usnError").innerText = "";
+    document.getElementById("courseError").innerText = "";
+    document.getElementById("message").innerText = "";
+
+    var name = document.getElementById("studentName").value.trim();
+    var email = document.getElementById("email").value.trim();
+    var usn = document.getElementById("usn").value.trim();
+    var course = document.getElementById("course").value;
+
+    var valid = true;
+
+    // Name validation
+    if (name === "") {
+        document.getElementById("nameError").innerText =
+            "Name is required";
+        valid = false;
+    }
+
+    // Email validation
+    var emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+    if (email === "") {
+        document.getElementById("emailError").innerText =
+            "Email is required";
+        valid = false;
+    }
+    else if (!emailPattern.test(email)) {
+        document.getElementById("emailError").innerText =
+            "Enter a valid email address";
+        valid = false;
+    }
+
+    // USN validation
+    if (usn === "") {
+        document.getElementById("usnError").innerText =
+            "USN is required";
+        valid = false;
+    }
+
+    // Course validation
+    if (course === "") {
+        document.getElementById("courseError").innerText =
+            "Please select a course";
+        valid = false;
+    }
+
+    if (valid) {
+        document.getElementById("message").innerText =
+            "Registration Successful";
+    }
+}
+
+</script>
+
+</body>
+</html>
